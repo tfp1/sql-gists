@@ -1,0 +1,13 @@
+select 
+ p.code
+,count(d.name)
+from "samples" s 
+left join "positions" p on p.id = s.position_id
+left join "drugs" d on d.id = s.drug_id
+where s.submitted = false
+and p.level = 500
+and d.name not in (
+  -- List all the samples you don't want here
+)
+group by p.code
+order by count(d.name) desc
